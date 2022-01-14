@@ -1,0 +1,10 @@
+# - Config file for the LBlocks package
+# It defines the following variables
+#  LBlocks_INCLUDE_DIRS - include directories for LBlocks
+ 
+# Compute paths
+set(LBlocks_INCLUDE_DIRS "@LBlocks_include_dirs@")
+
+# include paths
+include_directories(${LBlocks_INCLUDE_DIRS})
+message("[LBlocks]: Package found! Include ${LBlocks_INCLUDE_DIRS}")
