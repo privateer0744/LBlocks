@@ -18,5 +18,5 @@ configure_file(
 install(
     FILES
     "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/LBlocksConfig.cmake"
-    DESTINATION share/LBlocks/camke COMPONENT dev
+    DESTINATION share/LBlocks/cmake COMPONENT dev
 )
