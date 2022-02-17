@@ -1,6 +1,7 @@
 // LBlocks.hpp 
 // -- Version 0.0, Dec. 27, 2021
 // -- Version 0.1, Jan. 14, 2022
+// -- Version 0.2, Feb. 17, 2022
 // Copyright (C) 2021-2022, Qingqing Li (liqingmuguang@163.com). 
 //
 // This software may be modified and distributed under the terms
@@ -18,10 +19,11 @@ namespace lee
         class LBlockBase
         {
         public:
-            virtual void init   ()  {};
-            virtual void run    ()  = 0;
-            virtual void clear  ()  {};
-            virtual void print  ()  {};
+            virtual int init   ()  {return 0;};
+            virtual int run    ()  = 0;
+            virtual int clear  ()  {return 0;};
+            virtual int print  ()  {return 0;};
+            virtual int log    ()  {return 0;};
         };
 
         template<typename INPUT_TYPE, typename OUTPUT_TYPE>
@@ -31,6 +33,7 @@ namespace lee
             INPUT_TYPE  & getInput (                            ){return this->DataInput;   };
             OUTPUT_TYPE & getOutput(                            ){return this->DataOutput;  };
             inline void   setInput (const INPUT_TYPE & _Input   ){this->DataInput = _Input; };
+            inline void   setOutput(const OUTPUT_TYPE& _Output  ){this->DataOutput = _Output;};
             
             template<class BLOCK_TYPE>
             auto addBlock(BLOCK_TYPE * _pBlock)
