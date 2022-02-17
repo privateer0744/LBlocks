@@ -2,9 +2,12 @@
 # It defines the following variables
 #  LBlocks_INCLUDE_DIRS - include directories for LBlocks
  
-# Compute paths
-set(LBlocks_INCLUDE_DIRS "@LBlocks_include_dirs@")
 
-# include paths
-include_directories(${LBlocks_INCLUDE_DIRS})
-message("[LBlocks]: Package found! Include ${LBlocks_INCLUDE_DIRS}")
+if(NOT DEFINED LBlocks_FOUND)
+    # Compute paths
+    set(LBlocks_INCLUDE_DIRS "@LBlocks_include_dirs@")
+    set(LBlocks_FOUND 1)
+    # Include paths
+    include_directories(${LBlocks_INCLUDE_DIRS})
+    message("[LBlocks]: Package found! Include ${LBlocks_INCLUDE_DIRS}")
+endif()
