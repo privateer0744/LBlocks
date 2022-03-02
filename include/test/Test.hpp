@@ -17,7 +17,7 @@ namespace lee
 
             public:
                 ObserverBlock(double _T = 0.001) : LastPos(0), T(_T), InitFlag(0){};
-                void run()
+                int run()
                 {
                     if (InitFlag == 0)
                     {
@@ -32,10 +32,12 @@ namespace lee
                         this->DataOutput.Vel = (this->DataOutput.Pos - this->LastPos) / this->T;
                         this->LastPos = this->DataOutput.Pos;
                     }
+                    return 0;
                 };
-                void print()
+                int print()
                 {
                     std::cout << "Measured pos: " << this->getMeasured() << ", observed pos: " << this->DataOutput.Pos << ", vel: " << this->DataOutput.Vel << ", ";
+                    return 0;
                 };
 
                 inline double &getMeasured() { return *this->DataInput; };
@@ -49,18 +51,24 @@ namespace lee
                 double Kp, Kd;
 
             public:
-                void init()
+                int init()
                 {
                     this->Kp = 1000.0;
                     this->Kd = 100.0;
+                    
+                    return 0;
                 };
-                void run()
+                int run()
                 {
                     this->DataOutput = -this->Kp * (*this->DataInput.RealPos - *this->DataInput.RefPos) - this->Kd * (*this->DataInput.RealVel);
+                    
+                    return 0;
                 };
-                void print()
+                int print()
                 {
                     std::cout << "Control: " << this->DataOutput << ", ";
+                    
+                    return 0;
                 };
             };
 
@@ -77,15 +85,17 @@ namespace lee
                     this->DataOutput.Pos = 0.0;
                     this->DataOutput.Vel = 0.0;
                 };
-                void run()
+                int run()
                 {
                     this->Acc = (*this->DataInput) / this->Mass;
                     this->DataOutput.Vel += this->Acc * this->T;
                     this->DataOutput.Pos += this->DataOutput.Vel * this->T;
+                    return 0;
                 };
-                void print()
+                int print()
                 {
                     std::cout << "Real pos: " << this->DataOutput.Pos << ", ";
+                    return 0;
                 }
             };
 
@@ -97,7 +107,7 @@ namespace lee
                 std::shared_ptr<MassBlock> pMassBlock;
 
             public:
-                void init()
+                int init()
                 {
                     this->Time = 0;
                     this->T = 0.001;
@@ -114,9 +124,10 @@ namespace lee
                     {
                         i->init();
                     }
+                    return 0;
                 }
 
-                void run()
+                int run()
                 {
                     for (auto i : this->SubBlockList)
                     {
@@ -124,9 +135,10 @@ namespace lee
                     }
                     this->Time += this->T;
                     this->getRealPos() = this->pMassBlock->getOutput().Pos;
+                    return 0;
                 };
 
-                void print()
+                int print()
                 {
                     std::cout << std::fixed << "Time = " << this->Time << "s, ";
                     for (auto i : this->SubBlockList)
@@ -134,6 +146,12 @@ namespace lee
                         i->print();
                     }
                     std::cout << std::endl;
+                    return 0;
+                };
+
+                int log()
+                {
+                    return 0;
                 };
 
                 void setOutput(double *_RealPos) { this->DataOutput = _RealPos; };
