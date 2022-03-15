@@ -10,6 +10,7 @@
 #include <vector>
 #include <memory>
 #include <fstream>
+#include <algorithm>
 
 namespace lee{namespace blocks{
     template<typename _T=double>
@@ -50,6 +51,13 @@ namespace lee{namespace blocks{
 
         inline auto &getDataList(){return this->DataList;};
         inline auto &getNameList(){return this->DataName;};
+        inline auto getIndex(const char * _Str){
+            auto tar_iter = std::find(this->DataName.begin(),this->DataName.end(), _Str);
+            return std::distance(this->DataName.begin(), tar_iter);
+        };
+        inline auto &getData(const char* _Str){
+            return this->getDataList()[this->getIndex(_Str)];
+        };
 
     protected:
         std::vector<std::vector<_T>> DataList;
