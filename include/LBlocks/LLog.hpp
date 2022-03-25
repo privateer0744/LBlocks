@@ -25,7 +25,7 @@ namespace lee{namespace blocks{
         };
         void addLog(const _T &_SingleData, const char * _Name=""){
             this->CurrentDataIndex++;
-            if((int)this->DataList.size() < this->CurrentDataIndex)
+            if((int)this->DataName.size() < this->CurrentDataIndex)
             {
                 this->DataName.push_back(_Name);
                 this->DataList.push_back({_SingleData});
@@ -40,7 +40,7 @@ namespace lee{namespace blocks{
             this->FileStream<<std::endl;
             for(int i=0;i<this->DataList[0].size();i++)
             {
-                for(int j=0;j<this->DataList.size();j++)
+                for(int j=0;j<this->DataName.size();j++)
                 {
                     this->FileStream<<this->DataList[j][i]<<"\t";
                 }
@@ -57,6 +57,24 @@ namespace lee{namespace blocks{
         };
         inline auto &getData(const char* _Str){
             return this->getDataList()[this->getIndex(_Str)];
+        };
+
+        void initMemory(const unsigned int &_Kinds, const unsigned int &_Num)
+        {
+            this->DataList.resize(_Kinds);
+            for(int i=0;i<_Kinds;i++)
+            {
+                this->DataList[i].reserve(_Num);
+            }
+        };
+
+        void checkMemory()
+        {
+            std::cout<<"Logger Memory Check:"<<std::endl;
+            for(int i=0;i<this->DataList.size();i++)
+            {
+                std::cout<<"Data "<<i<<" Capacity: "<<this->DataList[i].capacity()<<std::endl;
+            }
         };
 
     protected:
