@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(LBlocks)
-
+set(CMAKE_INSTALL_PREFIX d:/projects/lib)
 # set(BUILD_TEST 1)
 if(BUILD_TEST)
     message("-- Build test of simple pd control for a mass system")
