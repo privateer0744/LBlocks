@@ -28,8 +28,11 @@ namespace lee{namespace blocks{
             if((int)this->DataName.size() < this->CurrentDataIndex)
             {
                 this->DataName.push_back(_Name);
-                this->DataList.push_back({_SingleData});
-                return;
+                if((int)this->DataList.size() < this->CurrentDataIndex)
+                {
+                    this->DataList.push_back({_SingleData});
+                    return;
+                }
             }
             this->DataList[this->CurrentDataIndex-1].push_back(_SingleData);
         };
